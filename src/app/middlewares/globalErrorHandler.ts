@@ -1,26 +1,81 @@
-// /* eslint-disable no-unused-vars */
-// /* eslint-disable @typescript-eslint/no-unused-vars */
-// import { ErrorRequestHandler } from 'express';
-// import httpStatus from 'http-status';
-// import config from '../../config';
-// import { IGenericErrorMessages } from '../../interfaces/error';
+/* eslint-disable no-unused-vars */
+/* eslint-disable @typescript-eslint/no-unused-vars */
+/* eslint-disable no-console */
+/* eslint-disable no-unused-expressions */
+import { ErrorRequestHandler } from 'express';
+import { ZodError } from 'zod';
+import config from '../../config';
+import ApiError from '../../errors/ApiError';
+import handleCastError from '../../errors/handleCastError';
+import handleValidationError from '../../errors/handleValidationError';
+import handleZodError from '../../errors/handleZodError';
+import { IGenericErrorMessages } from '../../interfaces/error';
+import { errorlogger } from '../../shared/logger';
 
-// const globaErrorHandler: ErrorRequestHandler = async (
-//   error,
-//   req,
-//   res,
-//   next,
-// ) => {
-//   let statusCode = httpStatus.INTERNAL_SERVER_ERROR;
-//   let message = 'Something went wrong';
-//   let errorMessages: IGenericErrorMessages[] = [];
+const globalErrorHandler: ErrorRequestHandler = (error, req, res, next) => {
+  //checking is server on development or production
+  config.env === 'development'
+    ? console.error('globalErrorHandler', error)
+    : errorlogger.error('globalErrorHandler ~', error);
 
-//   res.status(statusCode).json({
-//     success: false,
-//     message,
-//     errorMessages,
-//     stack: config.env !== 'production' ? error?.stack : undefined,
-//   });
-// };
+  let statusCode = 500;
+  let message = 'Something went wrong!';
+  let errorMessages: IGenericErrorMessages[] = [];
 
-// export default globaErrorHandler;
+  //check mongoose validation error
+  if (error?.name === 'ValidationError') {
+    const simplifiedError = handleValidationError(error);
+    statusCode = simplifiedError?.statusCode;
+    message = simplifiedError?.message;
+    errorMessages = simplifiedError?.errorMessages;
+  }
+  //check zod error
+  else if (error instanceof ZodError) {
+    const simplifiedError = handleZodError(error);
+    statusCode = simplifiedError?.statusCode;
+    message = simplifiedError?.message;
+    errorMessages = simplifiedError?.errorMessages;
+  }
+  //check mongoose cast error
+  else if (error?.name === 'CastError') {
+    const simplifiedError = handleCastError(error);
+    statusCode = simplifiedError.statusCode;
+    message = simplifiedError.message;
+    errorMessages = simplifiedError.errorMessages;
+  }
+
+  // check custom ApiError
+  else if (error instanceof ApiError) {
+    statusCode = error?.statusCode;
+    message = error?.message;
+    errorMessages = error?.message
+      ? [
+          {
+            path: '',
+            message: error?.message,
+          },
+        ]
+      : [];
+  }
+  //check express dafault error
+  else if (error instanceof Error) {
+    message = error?.message;
+    errorMessages = error?.message
+      ? [
+          {
+            path: '',
+            message: error?.message,
+          },
+        ]
+      : [];
+  }
+
+  res.status(statusCode).json({
+    success: false,
+    message,
+    errorMessages,
+    stack: config.env !== 'production' ? error?.stack : undefined,
+  });
+};
+
+export default globalErrorHandler;
