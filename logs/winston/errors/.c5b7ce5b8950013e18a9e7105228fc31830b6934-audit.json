@@ -1,15 +1,15 @@
 {
-    "keep": {
-        "days": true,
-        "amount": 14
-    },
-    "auditLog": "D:\\Next Level Development\\Assignments\\03. Digital_Cow-Hut_Assignment\\logs\\winston\\errors\\.c5b7ce5b8950013e18a9e7105228fc31830b6934-audit.json",
-    "files": [
-        {
-            "date": 1692619463368,
-            "name": "D:\\Next Level Development\\Assignments\\03. Digital_Cow-Hut_Assignment\\logs\\winston\\errors\\phu-2023-21-08-18-error.log",
-            "hash": "28cdd8aea9ac11d5e59298bb82bfa54a31d84117703712b738d1b93f3db7bff6"
-        }
-    ],
-    "hashType": "sha256"
+  "keep": {
+    "days": true,
+    "amount": 14
+  },
+  "auditLog": "D:\\Next Level Development\\Assignments\\03. Digital_Cow-Hut_Assignment\\logs\\winston\\errors\\.c5b7ce5b8950013e18a9e7105228fc31830b6934-audit.json",
+  "files": [
+    {
+      "date": 1692619463368,
+      "name": "D:\\Next Level Development\\Assignments\\03. Digital_Cow-Hut_Assignment\\logs\\winston\\errors\\phu-2023-21-08-18-error.log",
+      "hash": "28cdd8aea9ac11d5e59298bb82bfa54a31d84117703712b738d1b93f3db7bff6"
+    }
+  ],
+  "hashType": "sha256"
 }
