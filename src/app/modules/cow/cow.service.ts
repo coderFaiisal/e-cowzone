@@ -28,9 +28,17 @@ const getAllCows = async (
   filters: ICowFilters,
   paginationOptions: Partial<IPaginationOptions>,
 ): Promise<IGenericResponse<ICow[]>> => {
-  const { searchTerm, ...filtersData } = filters;
+  //implement sort conditions
   const { page, limit, skip, sortBy, sortOrder } =
     PaginationHelper.calculatePagination(paginationOptions);
+  const sortConditions: { [key: string]: SortOrder } = {};
+
+  if (sortBy && sortOrder) {
+    sortConditions[sortBy] = sortOrder;
+  }
+
+  //implement search and filter query
+  const { searchTerm, ...filtersData } = filters;
 
   const andConditions = [];
 
@@ -55,12 +63,6 @@ const getAllCows = async (
 
   const whereConditons =
     andConditions.length > 0 ? { $and: andConditions } : {};
-
-  const sortConditions: { [key: string]: SortOrder } = {};
-
-  if (sortBy && sortOrder) {
-    sortConditions[sortBy] = sortOrder;
-  }
 
   const result = await Cow.find(whereConditons)
     .sort(sortConditions)
@@ -99,6 +101,12 @@ const updateCow = async (
 };
 
 const deleteCow = async (id: string): Promise<ICow | null> => {
+  const isExist = await Cow.findById(id);
+
+  if (!isExist) {
+    throw new ApiError(httpStatus.BAD_REQUEST, 'Cow is not found!');
+  }
+
   const result = await Cow.findByIdAndDelete(id);
   return result;
 };
