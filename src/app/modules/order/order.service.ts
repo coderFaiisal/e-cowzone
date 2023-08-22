@@ -8,6 +8,12 @@ const createOrder = async (order: IOrder): Promise<IOrder> => {
   return result;
 };
 
+const getAllOrders = async (): Promise<IOrder[]> => {
+  const result = await Order.find().populate('cow').populate('buyer');
+  return result;
+};
+
 export const OrderService = {
   createOrder,
+  getAllOrders,
 };

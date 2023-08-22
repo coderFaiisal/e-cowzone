@@ -1,70 +1,75 @@
 {
-  "keep": {
-    "days": true,
-    "amount": 14
-  },
-  "auditLog": "D:\\Next Level Development\\Assignments\\03. Digital_Cow-Hut_Assignment\\logs\\winston\\successes\\.c2fca140b358a33d296644a07c833967adeb87cb-audit.json",
-  "files": [
-    {
-      "date": 1692619463364,
-      "name": "D:\\Next Level Development\\Assignments\\03. Digital_Cow-Hut_Assignment\\logs\\winston\\successes\\phu-2023-21-08-18-success.log",
-      "hash": "83463de76fbfd0737c0f92d19c4bb588f89145f8e4d95057b52ca4f03974c9b3"
+    "keep": {
+        "days": true,
+        "amount": 14
     },
-    {
-      "date": 1692632881133,
-      "name": "D:\\Next Level Development\\Assignments\\03. Digital_Cow-Hut_Assignment\\logs\\winston\\successes\\phu-2023-21-08-21-success.log",
-      "hash": "5396cff0ddb42d48484b63949fe298e2258ae77606135835a61cf3c19ba6ffc8"
-    },
-    {
-      "date": 1692633702316,
-      "name": "D:\\Next Level Development\\Assignments\\03. Digital_Cow-Hut_Assignment\\logs\\winston\\successes\\phu-2023-21-08-22-success.log",
-      "hash": "1ea1f93b4aaeabda92db546654c5923a30aceb00050d012991e94fb2fc22d06a"
-    },
-    {
-      "date": 1692637385426,
-      "name": "D:\\Next Level Development\\Assignments\\03. Digital_Cow-Hut_Assignment\\logs\\winston\\successes\\phu-2023-21-08-23-success.log",
-      "hash": "fa821b9179445b150d157b4f5851e4521982173bf6b1bc4e0f3079e737e325ad"
-    },
-    {
-      "date": 1692640805889,
-      "name": "D:\\Next Level Development\\Assignments\\03. Digital_Cow-Hut_Assignment\\logs\\winston\\successes\\phu-2023-22-08-00-success.log",
-      "hash": "83a383643b169cdbd6adabd475a6452352171c10ef1bfa71a569f7ce6f4545ff"
-    },
-    {
-      "date": 1692694461000,
-      "name": "D:\\Next Level Development\\Assignments\\03. Digital_Cow-Hut_Assignment\\logs\\winston\\successes\\phu-2023-22-08-14-success.log",
-      "hash": "fb98ef7e7b24241f1575474c45d6778088c8ae3a61c095236da628884337e080"
-    },
-    {
-      "date": 1692694965736,
-      "name": "D:\\Next Level Development\\Assignments\\03. Digital_Cow-Hut_Assignment\\logs\\winston\\successes\\phu-2023-22-08-15-success.log",
-      "hash": "f743baf647c6b036660b731598ab1d092f829e094baf26b237c462942ecc5601"
-    },
-    {
-      "date": 1692698488762,
-      "name": "D:\\Next Level Development\\Assignments\\03. Digital_Cow-Hut_Assignment\\logs\\winston\\successes\\phu-2023-22-08-16-success.log",
-      "hash": "8adc0b3e2996245c90ea17eb6fddd3005fd3fdce1a14fe3ebc02882e1fb5e5cc"
-    },
-    {
-      "date": 1692712760164,
-      "name": "D:\\Next Level Development\\Assignments\\03. Digital_Cow-Hut_Assignment\\logs\\winston\\successes\\phu-2023-22-08-19-success.log",
-      "hash": "05d6c30151816bb24238a608852d614c9abb2c44b8dd7ead916e884777073b17"
-    },
-    {
-      "date": 1692712810296,
-      "name": "D:\\Next Level Development\\Assignments\\03. Digital_Cow-Hut_Assignment\\logs\\winston\\successes\\phu-2023-22-08-20-success.log",
-      "hash": "a59a72ee42cd55b44a83e54b936d96cade71d2096ae328477b477e772dd43461"
-    },
-    {
-      "date": 1692720998289,
-      "name": "D:\\Next Level Development\\Assignments\\03. Digital_Cow-Hut_Assignment\\logs\\winston\\successes\\phu-2023-22-08-22-success.log",
-      "hash": "dc5dbcf48c796163a4ac50009073abbc2c9b23698df9e1b1232bb9e341e071be"
-    },
-    {
-      "date": 1692725271885,
-      "name": "D:\\Next Level Development\\Assignments\\03. Digital_Cow-Hut_Assignment\\logs\\winston\\successes\\phu-2023-22-08-23-success.log",
-      "hash": "9aa6e049acb797bdd9f7f9c96cfb77ea1d81f616250269ca2072c77813eaf6ab"
-    }
-  ],
-  "hashType": "sha256"
+    "auditLog": "D:\\Next Level Development\\Assignments\\03. Digital_Cow-Hut_Assignment\\logs\\winston\\successes\\.c2fca140b358a33d296644a07c833967adeb87cb-audit.json",
+    "files": [
+        {
+            "date": 1692619463364,
+            "name": "D:\\Next Level Development\\Assignments\\03. Digital_Cow-Hut_Assignment\\logs\\winston\\successes\\phu-2023-21-08-18-success.log",
+            "hash": "83463de76fbfd0737c0f92d19c4bb588f89145f8e4d95057b52ca4f03974c9b3"
+        },
+        {
+            "date": 1692632881133,
+            "name": "D:\\Next Level Development\\Assignments\\03. Digital_Cow-Hut_Assignment\\logs\\winston\\successes\\phu-2023-21-08-21-success.log",
+            "hash": "5396cff0ddb42d48484b63949fe298e2258ae77606135835a61cf3c19ba6ffc8"
+        },
+        {
+            "date": 1692633702316,
+            "name": "D:\\Next Level Development\\Assignments\\03. Digital_Cow-Hut_Assignment\\logs\\winston\\successes\\phu-2023-21-08-22-success.log",
+            "hash": "1ea1f93b4aaeabda92db546654c5923a30aceb00050d012991e94fb2fc22d06a"
+        },
+        {
+            "date": 1692637385426,
+            "name": "D:\\Next Level Development\\Assignments\\03. Digital_Cow-Hut_Assignment\\logs\\winston\\successes\\phu-2023-21-08-23-success.log",
+            "hash": "fa821b9179445b150d157b4f5851e4521982173bf6b1bc4e0f3079e737e325ad"
+        },
+        {
+            "date": 1692640805889,
+            "name": "D:\\Next Level Development\\Assignments\\03. Digital_Cow-Hut_Assignment\\logs\\winston\\successes\\phu-2023-22-08-00-success.log",
+            "hash": "83a383643b169cdbd6adabd475a6452352171c10ef1bfa71a569f7ce6f4545ff"
+        },
+        {
+            "date": 1692694461000,
+            "name": "D:\\Next Level Development\\Assignments\\03. Digital_Cow-Hut_Assignment\\logs\\winston\\successes\\phu-2023-22-08-14-success.log",
+            "hash": "fb98ef7e7b24241f1575474c45d6778088c8ae3a61c095236da628884337e080"
+        },
+        {
+            "date": 1692694965736,
+            "name": "D:\\Next Level Development\\Assignments\\03. Digital_Cow-Hut_Assignment\\logs\\winston\\successes\\phu-2023-22-08-15-success.log",
+            "hash": "f743baf647c6b036660b731598ab1d092f829e094baf26b237c462942ecc5601"
+        },
+        {
+            "date": 1692698488762,
+            "name": "D:\\Next Level Development\\Assignments\\03. Digital_Cow-Hut_Assignment\\logs\\winston\\successes\\phu-2023-22-08-16-success.log",
+            "hash": "8adc0b3e2996245c90ea17eb6fddd3005fd3fdce1a14fe3ebc02882e1fb5e5cc"
+        },
+        {
+            "date": 1692712760164,
+            "name": "D:\\Next Level Development\\Assignments\\03. Digital_Cow-Hut_Assignment\\logs\\winston\\successes\\phu-2023-22-08-19-success.log",
+            "hash": "05d6c30151816bb24238a608852d614c9abb2c44b8dd7ead916e884777073b17"
+        },
+        {
+            "date": 1692712810296,
+            "name": "D:\\Next Level Development\\Assignments\\03. Digital_Cow-Hut_Assignment\\logs\\winston\\successes\\phu-2023-22-08-20-success.log",
+            "hash": "a59a72ee42cd55b44a83e54b936d96cade71d2096ae328477b477e772dd43461"
+        },
+        {
+            "date": 1692720998289,
+            "name": "D:\\Next Level Development\\Assignments\\03. Digital_Cow-Hut_Assignment\\logs\\winston\\successes\\phu-2023-22-08-22-success.log",
+            "hash": "dc5dbcf48c796163a4ac50009073abbc2c9b23698df9e1b1232bb9e341e071be"
+        },
+        {
+            "date": 1692725271885,
+            "name": "D:\\Next Level Development\\Assignments\\03. Digital_Cow-Hut_Assignment\\logs\\winston\\successes\\phu-2023-22-08-23-success.log",
+            "hash": "9aa6e049acb797bdd9f7f9c96cfb77ea1d81f616250269ca2072c77813eaf6ab"
+        },
+        {
+            "date": 1692728746320,
+            "name": "D:\\Next Level Development\\Assignments\\03. Digital_Cow-Hut_Assignment\\logs\\winston\\successes\\phu-2023-23-08-00-success.log",
+            "hash": "682e960dbce358324ffb11b7f0f14ae130997358f1f36d6ff374b87fe70fa39b"
+        }
+    ],
+    "hashType": "sha256"
 }
