@@ -1,5 +1,10 @@
 import { Model, Types } from 'mongoose';
-import { IUser } from '../user/user.interface';
+
+export type ICowFilters = {
+  searchTerm?: string;
+  minPrice?: number;
+  maxPrice?: number;
+};
 
 export type ICow = {
   name: string;
@@ -28,4 +33,4 @@ export type ICow = {
   seller: Types.ObjectId;
 };
 
-export type ICowModel = Model<IUser, Record<string, unknown>>;
+export type ICowModel = Model<ICow, Record<string, unknown>>;

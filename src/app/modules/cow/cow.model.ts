@@ -1,5 +1,5 @@
 import { Schema, model } from 'mongoose';
-import { Breed, Category, Label, Location } from './cow.constant';
+import { breed, category, label, location } from './cow.constant';
 import { ICow, ICowModel } from './cow.interface';
 
 const cowSchema = new Schema<ICow, ICowModel>(
@@ -7,12 +7,12 @@ const cowSchema = new Schema<ICow, ICowModel>(
     name: { type: String, required: true },
     age: { type: Number, required: true },
     price: { type: Number, required: true },
-    location: { type: String, enum: Location, required: true },
-    breed: { type: String, enum: Breed, required: true },
+    location: { type: String, enum: location, required: true },
+    breed: { type: String, enum: breed, required: true },
     weight: { type: Number, required: true },
-    label: { type: String, enum: Label, required: true },
-    category: { type: String, enum: Category, required: true },
-    seller: { type: Schema.Types.ObjectId, required: true },
+    label: { type: String, enum: label, required: true },
+    category: { type: String, enum: category, required: true },
+    seller: { type: Schema.Types.ObjectId, ref: 'User', required: true },
   },
   {
     timestamps: true,

@@ -1,4 +1,4 @@
-export const Location = [
+export const location = [
   'Dhaka',
   'Chattogram',
   'Barishal',
@@ -9,7 +9,7 @@ export const Location = [
   'Mymensingh',
 ];
 
-export const Breed = [
+export const breed = [
   'Brahman',
   'Nellore',
   'Sahiwal',
@@ -19,6 +19,15 @@ export const Breed = [
   'Kankrej',
 ];
 
-export const Label = ['for sale', 'sold out'];
+export const label = ['for sale', 'sold out'];
 
-export const Category = ['Dairy', 'Beef', 'Dual Purpose'];
+export const category = ['Dairy', 'Beef', 'Dual Purpose'];
+
+export const cowFilterableFields = [
+  'searchTerm',
+  'minPrice',
+  'maxPrice',
+  'location',
+];
+
+export const cowSearchableFields = ['location', 'breed', 'category'];
