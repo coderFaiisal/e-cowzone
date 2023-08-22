@@ -38,9 +38,21 @@ const getAllCows = async (
   }
 
   //implement search and filter query
-  const { searchTerm, ...filtersData } = filters;
+  const { searchTerm, minPrice, maxPrice, ...filtersData } = filters;
 
   const andConditions = [];
+
+  if (minPrice) {
+    andConditions.push({
+      price: { $gte: Number(minPrice) },
+    });
+  }
+
+  if (maxPrice) {
+    andConditions.push({
+      price: { $lte: Number(maxPrice) },
+    });
+  }
 
   if (searchTerm) {
     andConditions.push({
