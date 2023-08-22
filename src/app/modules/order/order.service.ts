@@ -1,4 +1,4 @@
-import { SortOrder } from 'mongoose';
+import { SortOrder, startSession } from 'mongoose';
 import { PaginationHelper } from '../../../helpers/paginationHelper';
 import { IGenericResponse } from '../../../interfaces/common';
 import { IPaginationOptions } from '../../../interfaces/pagination';
@@ -6,10 +6,23 @@ import { IOrder } from './order.interface';
 import { Order } from './order.model';
 
 const createOrder = async (order: IOrder): Promise<IOrder> => {
-  const result = (await (await Order.create(order)).populate('cow')).populate(
-    'buyer',
-  );
-  return result;
+  let allOrdersData;
+  const session = await startSession();
+  try {
+    session.startTransaction();
+    const newOrder = (
+      await (await Order.create(order)).populate('cow')
+    ).populate('buyer');
+    allOrdersData = newOrder;
+
+    await session.commitTransaction();
+  } catch (error) {
+    await session.abortTransaction();
+    throw error;
+  } finally {
+    await session.endSession();
+  }
+  return allOrdersData;
 };
 
 const getAllOrders = async (
