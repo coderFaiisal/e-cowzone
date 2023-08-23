@@ -1,5 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
-/* eslint-disable no-unused-vars */
 import httpStatus from 'http-status';
 import { SortOrder, startSession } from 'mongoose';
 import ApiError from '../../../errors/ApiError';
@@ -12,42 +10,58 @@ import { IOrder } from './order.interface';
 import { Order } from './order.model';
 
 const createOrder = async (order: IOrder): Promise<IOrder> => {
-  const cow = await Cow.findById(order.cow);
-  const buyer = await User.findById(order.buyer);
-  const seller = await User.findById(cow?.seller);
-  const cowPrice = cow ? cow.price : 0;
+  let newOrderAllData;
 
-  if (buyer && cow && buyer.budget < cowPrice) {
-    throw new ApiError(
-      httpStatus.BAD_REQUEST,
-      'You have to need more budget to buy this cow!',
-    );
-  }
-
-  let allOrdersData;
-
+  //start transaction operation
   const session = await startSession();
   try {
     session.startTransaction();
+    const cow = await Cow.findById(order.cow);
+    const buyer = await User.findById(order.buyer);
+    const seller = await User.findById(cow?.seller);
 
-    const newCow = await Cow.findByIdAndUpdate(order.cow, {
-      label: 'sold out',
-    });
-
+    const cowPrice = cow ? cow.price : 0;
     const newBuyerBudget = buyer ? buyer.budget - cowPrice : 0;
-    const deductMoneyFromBuyer = await User.findByIdAndUpdate(order.buyer, {
-      budget: newBuyerBudget,
-    });
-
     const newSellerIncome = seller ? seller?.income + cowPrice : 0;
-    const addMoneyToSeller = await User.findByIdAndUpdate(cow?.seller, {
-      income: newSellerIncome,
-    });
 
-    const newOrder = (
-      await (await Order.create(order)).populate('cow')
-    ).populate('buyer');
-    allOrdersData = newOrder;
+    //checking buyer ability for buying cow
+    if (buyer && cow && buyer.budget < cowPrice) {
+      throw new ApiError(
+        httpStatus.BAD_REQUEST,
+        'You have to need more budget to buy this cow!',
+      );
+    }
+
+    //update cow status
+    await Cow.findByIdAndUpdate(
+      order.cow,
+      {
+        label: 'sold out',
+      },
+      { session: session },
+    );
+
+    //update buyer budget
+    await User.findByIdAndUpdate(
+      order.buyer,
+      {
+        budget: newBuyerBudget,
+      },
+      { session: session },
+    );
+
+    //update seller income
+    await User.findByIdAndUpdate(
+      cow?.seller,
+      {
+        income: newSellerIncome,
+      },
+      { session: session },
+    );
+
+    //save order
+    const newOrder = await Order.create([order], { session });
+    newOrderAllData = (await newOrder[0].populate('cow')).populate('buyer');
 
     await session.commitTransaction();
   } catch (error) {
@@ -56,7 +70,7 @@ const createOrder = async (order: IOrder): Promise<IOrder> => {
   } finally {
     await session.endSession();
   }
-  return allOrdersData;
+  return newOrderAllData;
 };
 
 const getAllOrders = async (
@@ -74,7 +88,10 @@ const getAllOrders = async (
     .sort(sortConditions)
     .skip(skip)
     .limit(limit)
-    .populate('cow')
+    .populate({
+      path: 'cow',
+      populate: [{ path: 'seller' }],
+    })
     .populate('buyer');
 
   const total = await Order.countDocuments();
