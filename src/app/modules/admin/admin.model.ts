@@ -1,3 +1,4 @@
+import bcrypt from 'bcrypt';
 import { Schema, model } from 'mongoose';
 import { AdminModel, IAdmin } from './admin.interface';
 
@@ -21,6 +22,13 @@ adminSchema.statics.isAdminExist = async function (
   id: string,
 ): Promise<Pick<IAdmin, 'role'> | null> {
   return await Admin.findById(id, { role: 1 }).lean();
+};
+
+adminSchema.statics.isPasswordMatched = async function (
+  givenPassword: string,
+  savedPassword: string,
+): Promise<boolean> {
+  return await bcrypt.compare(givenPassword, savedPassword);
 };
 
 export const Admin = model<IAdmin, AdminModel>('Admin', adminSchema);

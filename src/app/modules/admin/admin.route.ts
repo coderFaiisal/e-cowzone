@@ -11,8 +11,14 @@ router.post(
   AdminController.createAdmin,
 );
 
-router.post('/login');
+router.post(
+  '/login',
+  validateRequest(AdminValidation.loginAdminZodSchema),
+  AdminController.loginAdmin,
+);
+
 router.get('//my-profile');
+
 router.patch('/my-profile');
 
 export const AdminRoutes = router;

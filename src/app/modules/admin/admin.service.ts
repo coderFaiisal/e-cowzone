@@ -6,6 +6,12 @@ const createAdmin = async (payload: IAdmin): Promise<IAdmin> => {
   return result;
 };
 
+const loginAdmin = async (payload: Partial<IAdmin>) => {
+  const { phoneNumber, password } = payload;
+  console.log(phoneNumber, password);
+};
+
 export const AdminService = {
   createAdmin,
+  loginAdmin,
 };

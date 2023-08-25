@@ -15,6 +15,18 @@ const createAdmin = catchAsync(async (req: Request, res: Response) => {
   });
 });
 
+const loginAdmin = catchAsync(async (req: Request, res: Response) => {
+  const { ...loginData } = req.body;
+  const result = await AdminService.loginAdmin(loginData);
+  sendResponse(res, {
+    statusCode: httpStatus.OK,
+    success: true,
+    message: 'Admin logging successfully',
+    data: result,
+  });
+});
+
 export const AdminController = {
   createAdmin,
+  loginAdmin,
 };
