@@ -1,6 +1,11 @@
 /* eslint-disable no-unused-vars */
 import { Model } from 'mongoose';
 
+export type ILoginAdmin = {
+  phoneNumber: string;
+  password: string;
+};
+
 export type IAdmin = {
   password: string;
   role: 'admin';
@@ -13,7 +18,7 @@ export type IAdmin = {
 };
 
 export type AdminModel = {
-  isAdminExist(id: string): Promise<Pick<IAdmin, 'role'> | null>;
+  isAdminExist(id: string): Promise<Pick<IAdmin, 'role' | 'password'> | null>;
   isPasswordMatched(
     givenPassword: string,
     savedPassword: string,
