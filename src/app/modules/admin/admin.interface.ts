@@ -1,11 +1,6 @@
 /* eslint-disable no-unused-vars */
 import { Model } from 'mongoose';
 
-export type ILoginAdmin = {
-  phoneNumber: string;
-  password: string;
-};
-
 export type IAdmin = {
   password: string;
   role: 'admin';

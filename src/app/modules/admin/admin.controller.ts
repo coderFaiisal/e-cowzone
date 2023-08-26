@@ -1,14 +1,17 @@
 import { Request, Response } from 'express';
 import httpStatus from 'http-status';
 import config from '../../../config';
+import { ILoginResponse } from '../../../interfaces/common';
 import catchAsync from '../../../shared/catchAsync';
 import sendResponse from '../../../shared/sendResponse';
+import { IAdmin } from './admin.interface';
 import { AdminService } from './admin.service';
 
 const createAdmin = catchAsync(async (req: Request, res: Response) => {
   const { ...adminData } = req.body;
   const result = await AdminService.createAdmin(adminData);
-  sendResponse(res, {
+
+  sendResponse<IAdmin>(res, {
     statusCode: httpStatus.OK,
     success: true,
     message: 'Admin created successfully',
@@ -29,7 +32,7 @@ const loginAdmin = catchAsync(async (req: Request, res: Response) => {
 
   res.cookie('refreshToken', refreshToken, cookieOptions);
 
-  sendResponse(res, {
+  sendResponse<Partial<ILoginResponse>>(res, {
     statusCode: httpStatus.OK,
     success: true,
     message: 'Admin logged in successfully',

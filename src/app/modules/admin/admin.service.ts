@@ -3,7 +3,8 @@ import { Secret } from 'jsonwebtoken';
 import config from '../../../config';
 import ApiError from '../../../errors/ApiError';
 import { jwtHelper } from '../../../helpers/jwtHelper';
-import { IAdmin, ILoginAdmin } from './admin.interface';
+import { ILogin, ILoginResponse } from '../../../interfaces/common';
+import { IAdmin } from './admin.interface';
 import { Admin } from './admin.model';
 
 const createAdmin = async (payload: IAdmin): Promise<IAdmin> => {
@@ -11,7 +12,7 @@ const createAdmin = async (payload: IAdmin): Promise<IAdmin> => {
   return result;
 };
 
-const loginAdmin = async (payload: ILoginAdmin) => {
+const loginAdmin = async (payload: ILogin): Promise<ILoginResponse> => {
   const { phoneNumber, password } = payload;
 
   //check admin
