@@ -22,7 +22,7 @@ const adminSchema = new Schema<IAdmin, AdminModel>(
 
 adminSchema.statics.isAdminExist = async function (
   phoneNumber: string,
-): Promise<Pick<IAdmin, 'role' | 'password'> | null> {
+): Promise<Record<string, unknown> | null> {
   return await Admin.findOne({ phoneNumber }, { role: 1, password: 1 }).lean();
 };
 

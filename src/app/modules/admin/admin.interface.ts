@@ -18,7 +18,7 @@ export type IAdmin = {
 };
 
 export type AdminModel = {
-  isAdminExist(id: string): Promise<Pick<IAdmin, 'role' | 'password'> | null>;
+  isAdminExist(phoneNumber: string): Promise<Record<string, unknown> | null>;
   isPasswordMatched(
     givenPassword: string,
     savedPassword: string,
