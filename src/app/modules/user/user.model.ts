@@ -13,7 +13,7 @@ const userSchema = new Schema<IUser, UserModel>(
       firstName: { type: String, required: true },
       lastName: { type: String, required: true },
     },
-    phoneNumber: { type: String, required: true },
+    phoneNumber: { type: String, required: true, unique: true },
     address: { type: String, required: true },
     budget: { type: Number, required: true },
     income: { type: Number, required: true },
