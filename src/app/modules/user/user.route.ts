@@ -19,15 +19,9 @@ router.get('/', auth(ENUM_USER_ROLE.ADMIN), UserController.getAllUsers);
 
 router.patch(
   '/my-profile',
+  validateRequest(UserValidation.updateUserZodSchema),
   auth(ENUM_USER_ROLE.BUYER, ENUM_USER_ROLE.SELLER),
   UserController.updateUserProfile,
-);
-
-router.patch(
-  '/:id',
-  auth(ENUM_USER_ROLE.ADMIN),
-  validateRequest(UserValidation.updateUserZodSchema),
-  UserController.updateUser,
 );
 
 router.delete('/:id', auth(ENUM_USER_ROLE.ADMIN), UserController.deleteUser);

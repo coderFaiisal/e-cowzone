@@ -39,19 +39,18 @@ const getUserProfile = catchAsync(async (req: Request, res: Response) => {
   });
 });
 
-const updateUser = catchAsync(async (req: Request, res: Response) => {
-  const id = req.params.id;
-  const updatedData = req.body;
-  const result = await UserService.updateUser(id, updatedData);
-  sendResponse<IUser>(res, {
+const updateUserProfile = catchAsync(async (req: Request, res: Response) => {
+  const user = req.user;
+  const { ...updatedData } = req.body;
+  const result = await UserService.updateUserProfile(user, updatedData);
+
+  sendResponse<Partial<IUser>>(res, {
     statusCode: httpStatus.OK,
     success: true,
-    message: 'User updated successfully',
+    message: "User's information retrieved successfully",
     data: result,
   });
 });
-
-const updateUserProfile = () => {};
 
 const deleteUser = catchAsync(async (req: Request, res: Response) => {
   const id = req.params.id;
@@ -68,7 +67,6 @@ export const UserController = {
   getSingleUser,
   getAllUsers,
   getUserProfile,
-  updateUser,
   deleteUser,
   updateUserProfile,
 };

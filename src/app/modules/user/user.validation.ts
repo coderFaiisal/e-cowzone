@@ -10,8 +10,6 @@ const updateUserZodSchema = z.object({
       })
       .optional(),
     address: z.string().optional(),
-    budget: z.number().optional(),
-    income: z.number().optional(),
   }),
 });
 

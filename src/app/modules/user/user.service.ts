@@ -1,6 +1,8 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
+import bcrypt from 'bcrypt';
 import httpStatus from 'http-status';
 import { JwtPayload } from 'jsonwebtoken';
+import config from '../../../config';
 import ApiError from '../../../errors/ApiError';
 import { IUser } from './user.interface';
 import { User } from './user.model';
@@ -27,19 +29,26 @@ const getUserProfile = async (
   return result;
 };
 
-const updateUser = async (
-  id: string,
+const updateUserProfile = async (
+  user: JwtPayload | null,
   payload: Partial<IUser>,
-): Promise<IUser | null> => {
-  const isExist = await User.findById(id);
+): Promise<Partial<IUser> | null> => {
+  const isExist = await User.findById(user?._id);
 
   if (!isExist) {
-    throw new ApiError(httpStatus.BAD_REQUEST, 'User is not found!');
+    throw new ApiError(httpStatus.BAD_REQUEST, 'User does not found!');
   }
 
-  const { name, ...userData } = payload;
+  const { name, password, ...userData } = payload;
 
   const updatedUserData: Partial<IUser> = { ...userData };
+
+  if (password) {
+    (updatedUserData as any)[password] = await bcrypt.hash(
+      password,
+      Number(config.bcrypt_salt_rounds),
+    );
+  }
 
   if (name && Object.keys(name).length > 0) {
     Object.keys(name).forEach(key => {
@@ -48,9 +57,12 @@ const updateUser = async (
     });
   }
 
-  const result = await User.findOneAndUpdate({ _id: id }, updatedUserData, {
-    new: true,
-  });
+  const result = await User.findOneAndUpdate(
+    { _id: user?._id },
+    updatedUserData,
+    { new: true },
+  ).projection({ _id: 0, name: 1, phoneNumber: 1, address: 1 });
+
   return result;
 };
 
@@ -69,6 +81,6 @@ export const UserService = {
   getSingleUser,
   getAllUsers,
   getUserProfile,
-  updateUser,
+  updateUserProfile,
   deleteUser,
 };
