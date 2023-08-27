@@ -8,6 +8,9 @@ const orderSchema = new Schema<IOrder, IOrderModel>(
   },
   {
     timestamps: true,
+    toJSON: {
+      virtuals: true,
+    },
   },
 );
 

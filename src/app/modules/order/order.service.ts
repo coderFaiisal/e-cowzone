@@ -122,7 +122,7 @@ const getSingleOrder = async (
   user: JwtPayload | null,
 ): Promise<IOrder | null> => {
   //check order
-  const isOrderExist = await Order.findById(id)
+  const order = await Order.findById(id)
     .populate({
       path: 'cow',
       populate: [
@@ -131,14 +131,13 @@ const getSingleOrder = async (
         },
       ],
     })
-    .populate('buyer')
-    .lean();
+    .populate('buyer');
 
-  if (!isOrderExist) {
+  if (!order) {
     throw new ApiError(httpStatus.NOT_FOUND, 'Order does not found!');
   }
 
-  const { buyer, cow } = isOrderExist;
+  const { buyer, cow } = order;
 
   if (user?.role === 'buyer') {
     //check authentic buyer
@@ -146,20 +145,20 @@ const getSingleOrder = async (
       throw new ApiError(httpStatus.FORBIDDEN, 'Forbidden Access!');
     }
 
-    return isOrderExist;
+    return order;
   }
 
   if (user?.role === 'seller') {
-    const soldCow = await Cow.findById(cow._id);
+    const soldCow = await Cow.findById(cow._id).lean();
 
     if (soldCow?.seller != user._id) {
       throw new ApiError(httpStatus.FORBIDDEN, 'Forbidden Access!');
     }
 
-    return isOrderExist;
+    return order;
   }
 
-  return isOrderExist;
+  return order;
 };
 
 export const OrderService = {

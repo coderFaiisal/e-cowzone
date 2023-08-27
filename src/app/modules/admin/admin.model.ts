@@ -17,6 +17,9 @@ const adminSchema = new Schema<IAdmin, AdminModel>(
   },
   {
     timestamps: true,
+    toJSON: {
+      virtuals: true,
+    },
   },
 );
 
