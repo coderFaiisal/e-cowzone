@@ -61,7 +61,7 @@ const updateUserProfile = async (
     { _id: user?._id },
     updatedUserData,
     { new: true },
-  ).projection({ _id: 0, name: 1, phoneNumber: 1, address: 1 });
+  ).select({ _id: 0, name: 1, phoneNumber: 1, address: 1 });
 
   return result;
 };

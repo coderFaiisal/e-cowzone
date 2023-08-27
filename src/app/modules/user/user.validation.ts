@@ -9,6 +9,7 @@ const updateUserZodSchema = z.object({
         lastName: z.string().optional(),
       })
       .optional(),
+    phoneNumber: z.string().optional(),
     address: z.string().optional(),
   }),
 });

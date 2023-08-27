@@ -1,5 +1,7 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import bcrypt from 'bcrypt';
 import httpStatus from 'http-status';
-import { Secret } from 'jsonwebtoken';
+import { JwtPayload, Secret } from 'jsonwebtoken';
 import config from '../../../config';
 import ApiError from '../../../errors/ApiError';
 import { jwtHelper } from '../../../helpers/jwtHelper';
@@ -59,7 +61,58 @@ const loginAdmin = async (payload: ILogin): Promise<ILoginResponse> => {
   };
 };
 
+const getAdminProfile = async (
+  user: JwtPayload | null,
+): Promise<IAdmin | null> => {
+  const result = await Admin.findById(user?._id, {
+    name: 1,
+    phoneNumber: 1,
+    address: 1,
+    _id: 0,
+  });
+  return result;
+};
+
+const updateAdminProfile = async (
+  user: JwtPayload | null,
+  payload: Partial<IAdmin>,
+): Promise<Partial<IAdmin> | null> => {
+  const isExist = await Admin.findById(user?._id);
+
+  if (!isExist) {
+    throw new ApiError(httpStatus.BAD_REQUEST, 'Admin does not found!');
+  }
+
+  const { name, password, ...adminData } = payload;
+
+  const updatedAdminData: Partial<IAdmin> = { ...adminData };
+
+  if (password) {
+    (updatedAdminData as any)[password] = await bcrypt.hash(
+      password,
+      Number(config.bcrypt_salt_rounds),
+    );
+  }
+
+  if (name && Object.keys(name).length > 0) {
+    Object.keys(name).forEach(key => {
+      const nameKey = `name.${key}` as keyof IAdmin;
+      (updatedAdminData as any)[nameKey] = name[key as keyof typeof name];
+    });
+  }
+
+  const result = await Admin.findOneAndUpdate(
+    { _id: user?._id },
+    updatedAdminData,
+    { new: true },
+  ).select({ _id: 0, name: 1, phoneNumber: 1, address: 1 });
+
+  return result;
+};
+
 export const AdminService = {
   createAdmin,
   loginAdmin,
+  getAdminProfile,
+  updateAdminProfile,
 };

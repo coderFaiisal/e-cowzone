@@ -40,7 +40,35 @@ const loginAdmin = catchAsync(async (req: Request, res: Response) => {
   });
 });
 
+const getAdminProfile = catchAsync(async (req: Request, res: Response) => {
+  const user = req.user;
+
+  const result = await AdminService.getAdminProfile(user);
+
+  sendResponse<IAdmin>(res, {
+    statusCode: httpStatus.OK,
+    success: true,
+    message: "Admin's information retrieved successfully",
+    data: result,
+  });
+});
+
+const updateAdminProfile = catchAsync(async (req: Request, res: Response) => {
+  const user = req.user;
+  const { ...updatedData } = req.body;
+  const result = await AdminService.updateAdminProfile(user, updatedData);
+
+  sendResponse<Partial<IAdmin>>(res, {
+    statusCode: httpStatus.OK,
+    success: true,
+    message: "Admin's information retrieved successfully",
+    data: result,
+  });
+});
+
 export const AdminController = {
   createAdmin,
   loginAdmin,
+  getAdminProfile,
+  updateAdminProfile,
 };
