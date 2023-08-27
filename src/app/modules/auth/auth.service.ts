@@ -14,7 +14,6 @@ import { User } from '../user/user.model';
 const createUser = async (user: IUser): Promise<IUser> => {
   const isExist = await User.findOne({
     phoneNumber: user.phoneNumber,
-    role: user.role,
   });
 
   if (isExist) {

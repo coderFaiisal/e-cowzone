@@ -1,9 +1,7 @@
 import httpStatus from 'http-status';
-import { SortOrder, startSession } from 'mongoose';
+import { JwtPayload } from 'jsonwebtoken';
+import { startSession } from 'mongoose';
 import ApiError from '../../../errors/ApiError';
-import { PaginationHelper } from '../../../helpers/paginationHelper';
-import { IGenericResponse } from '../../../interfaces/common';
-import { IPaginationOptions } from '../../../interfaces/pagination';
 import { Cow } from '../cow/cow.model';
 import { User } from '../user/user.model';
 import { IOrder } from './order.interface';
@@ -73,37 +71,50 @@ const createOrder = async (order: IOrder): Promise<IOrder> => {
   return newOrderAllData;
 };
 
-const getAllOrders = async (
-  options: IPaginationOptions,
-): Promise<IGenericResponse<IOrder[]>> => {
-  const { page, limit, skip, sortBy, sortOrder } =
-    PaginationHelper.calculatePagination(options);
+const getAllOrders = async (user: JwtPayload | null): Promise<IOrder[]> => {
+  if (user?.role === 'buyer') {
+    const buyerOrders = await Order.find({ buyer: user._id })
+      .populate({
+        path: 'cow',
+        populate: [
+          {
+            path: 'seller',
+          },
+        ],
+      })
+      .populate('buyer');
 
-  const sortConditions: { [key: string]: SortOrder } = {};
-  if (sortBy && sortOrder) {
-    sortConditions[sortBy] = sortOrder;
+    return buyerOrders;
+  }
+
+  if (user?.role === 'seller') {
+    const sellerCows = await Cow.find({ seller: user._id }, { _id: 1 }).lean();
+
+    const sellerOrders = await Order.find({ cow: { $in: sellerCows } })
+      .populate({
+        path: 'cow',
+        populate: [
+          {
+            path: 'seller',
+          },
+        ],
+      })
+      .populate('buyer');
+    return sellerOrders;
   }
 
   const result = await Order.find()
-    .sort(sortConditions)
-    .skip(skip)
-    .limit(limit)
     .populate({
       path: 'cow',
-      populate: [{ path: 'seller' }],
+      populate: [
+        {
+          path: 'seller',
+        },
+      ],
     })
     .populate('buyer');
 
-  const total = await Order.countDocuments();
-
-  return {
-    meta: {
-      page,
-      limit,
-      total,
-    },
-    data: result,
-  };
+  return result;
 };
 
 export const OrderService = {
