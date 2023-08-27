@@ -43,18 +43,18 @@ const updateUserProfile = async (
 
   const updatedUserData: Partial<IUser> = { ...userData };
 
-  if (password) {
-    updatedUserData.password = await bcrypt.hash(
-      password,
-      Number(config.bcrypt_salt_rounds),
-    );
-  }
-
   if (name && Object.keys(name).length > 0) {
     Object.keys(name).forEach(key => {
       const nameKey = `name.${key}` as keyof IUser;
       (updatedUserData as any)[nameKey] = name[key as keyof typeof name];
     });
+  }
+
+  if (password) {
+    updatedUserData.password = await bcrypt.hash(
+      password,
+      Number(config.bcrypt_salt_rounds),
+    );
   }
 
   const result = await User.findOneAndUpdate(
