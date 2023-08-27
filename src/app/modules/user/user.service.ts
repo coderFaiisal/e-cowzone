@@ -44,7 +44,7 @@ const updateUserProfile = async (
   const updatedUserData: Partial<IUser> = { ...userData };
 
   if (password) {
-    (updatedUserData as any)[password] = await bcrypt.hash(
+    updatedUserData.password = await bcrypt.hash(
       password,
       Number(config.bcrypt_salt_rounds),
     );

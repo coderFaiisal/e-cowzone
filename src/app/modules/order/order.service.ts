@@ -117,7 +117,19 @@ const getAllOrders = async (user: JwtPayload | null): Promise<IOrder[]> => {
   return result;
 };
 
+const getSingleOrder = async (
+  id: string,
+  user: JwtPayload | null,
+): Promise<IOrder | null> => {
+  const isOrderExist = await Order.findById(id);
+  console.log(isOrderExist);
+  console.log(user);
+
+  return isOrderExist;
+};
+
 export const OrderService = {
   createOrder,
   getAllOrders,
+  getSingleOrder,
 };

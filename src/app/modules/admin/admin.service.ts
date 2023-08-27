@@ -87,18 +87,18 @@ const updateAdminProfile = async (
 
   const updatedAdminData: Partial<IAdmin> = { ...adminData };
 
-  if (password) {
-    (updatedAdminData as any)[password] = await bcrypt.hash(
-      password,
-      Number(config.bcrypt_salt_rounds),
-    );
-  }
-
   if (name && Object.keys(name).length > 0) {
     Object.keys(name).forEach(key => {
       const nameKey = `name.${key}` as keyof IAdmin;
       (updatedAdminData as any)[nameKey] = name[key as keyof typeof name];
     });
+  }
+
+  if (password) {
+    updatedAdminData.password = await bcrypt.hash(
+      password,
+      Number(config.bcrypt_salt_rounds),
+    );
   }
 
   const result = await Admin.findOneAndUpdate(
