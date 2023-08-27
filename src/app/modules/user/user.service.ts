@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import httpStatus from 'http-status';
+import { JwtPayload } from 'jsonwebtoken';
 import ApiError from '../../../errors/ApiError';
 import { IUser } from './user.interface';
 import { User } from './user.model';
@@ -11,6 +12,18 @@ const getSingleUser = async (id: string): Promise<IUser | null> => {
 
 const getAllUsers = async (): Promise<IUser[]> => {
   const result = await User.find({});
+  return result;
+};
+
+const getUserProfile = async (
+  user: JwtPayload | null,
+): Promise<IUser | null> => {
+  const result = await User.findById(user?._id, {
+    name: 1,
+    phoneNumber: 1,
+    address: 1,
+    _id: 0,
+  });
   return result;
 };
 
@@ -55,6 +68,7 @@ const deleteUser = async (id: string): Promise<IUser | null> => {
 export const UserService = {
   getSingleUser,
   getAllUsers,
+  getUserProfile,
   updateUser,
   deleteUser,
 };
