@@ -11,6 +11,10 @@ const createAdmin = catchAsync(async (req: Request, res: Response) => {
   const { ...adminData } = req.body;
   const result = await AdminService.createAdmin(adminData);
 
+  if (result.password) {
+    result.password = '';
+  }
+
   sendResponse<IAdmin>(res, {
     statusCode: httpStatus.OK,
     success: true,
