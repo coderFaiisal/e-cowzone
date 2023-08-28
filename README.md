@@ -1,32 +1,55 @@
-# Live Link: https://digital-cow-hut-backend-pearl.vercel.app/
+## Live Link: https://digital-cow-hut-auth-sand.vercel.app/
 
 ## Application Routes:
 
-### User
+# Main part
 
-- https://digital-cow-hut-backend-pearl.vercel.app/api/v1/auth/signup (POST)
-- https://digital-cow-hut-backend-pearl.vercel.app/api/v1/users (GET)
-- https://digital-cow-hut-backend-pearl.vercel.app/api/v1/users/64e489041ef492c69ed33200 (Single GET) Include an id that is saved in database
-- https://digital-cow-hut-backend-pearl.vercel.app/api/v1/users/64e489041ef492c69ed33200 (PATCH) Include an id that is saved in database
-- https://digital-cow-hut-backend-pearl.vercel.app/api/v1/users/64e489041ef492c69ed33200 (DELETE) Include an id that is saved in database
+## Auth (User)
 
-### Cows
+- Route: https://digital-cow-hut-auth-sand.vercel.app/api/v1/auth/login (POST)
+- Route: https://digital-cow-hut-auth-sand.vercel.app/api/v1/auth/signup (POST)
+- Route: https://digital-cow-hut-auth-sand.vercel.app/api/v1/auth/refresh-token (POST)
 
-- https://digital-cow-hut-backend-pearl.vercel.app/api/v1/cows (POST)
-- https://digital-cow-hut-backend-pearl.vercel.app/api/v1/cows (GET)
-- https://digital-cow-hut-backend-pearl.vercel.app/api/v1/cows/64e4e03ba96bcdb8181b2c36 (Single GET) Include an id that is saved in database
-- https://digital-cow-hut-backend-pearl.vercel.app/api/v1/cows/64e4e03ba96bcdb8181b2c36 (PATCH) Include an id that is saved in database
-- https://digital-cow-hut-backend-pearl.vercel.app/api/v1/cows/64e4e03ba96bcdb8181b2c36 (DELETE) Include an id that is saved in database
+## Auth (Admin)
 
-### Pagination and Filtering routes of Cows
+- Route: https://digital-cow-hut-auth-sand.vercel.app/api/v1/admins/create-admin (POST)
+- Route: https://digital-cow-hut-auth-sand.vercel.app/api/v1/admins/login (POST)
 
-- https://digital-cow-hut-backend-pearl.vercel.app/api/v1/cows?pag=1&limit=10
-- https://digital-cow-hut-backend-pearl.vercel.app/api/v1/cows?sortBy=price&sortOrder=asc
-- https://digital-cow-hut-backend-pearl.vercel.app/api/v1/cows?minPrice=200&maxPrice=7000
-- https://digital-cow-hut-backend-pearl.vercel.app/api/v1/cows?location=Dhaka
-- https://digital-cow-hut-backend-pearl.vercel.app/api/v1/cows?searchTerm=Com
+## User
+
+- Route: https://digital-cow-hut-auth-sand.vercel.app/api/v1/users (GET)
+- Route: https://digital-cow-hut-auth-sand.vercel.app/api/v1/users/64eba7cbc291acb58bc35c58 (Single GET) Include an id that is saved in database
+- Route: https://digital-cow-hut-auth-sand.vercel.app/api/v1/users/64eba7cbc291acb58bc35c58 (PATCH) Include an id that is saved in database
+- Route: https://digital-cow-hut-auth-sand.vercel.app/api/v1/users/64eba7cbc291acb58bc35c58 (DELETE) Include an id that is saved in database
+
+## Cows
+
+- Route: https://digital-cow-hut-auth-sand.vercel.app/api/v1/cows (POST)
+- Route: https://digital-cow-hut-auth-sand.vercel.app/api/v1/cows (GET)
+- Route: https://digital-cow-hut-auth-sand.vercel.app/api/v1/cows/64eba8d378ed6294aa37d42e (Single GET) Include an id that is saved in database
+- Route: https://digital-cow-hut-auth-sand.vercel.app/api/v1/cows/64eba8d378ed6294aa37d42e (PATCH) Include an id that is saved in database
+- Route: https://digital-cow-hut-auth-sand.vercel.app/api/v1/cows/64eba8d378ed6294aa37d42e (DELETE) Include an id that is saved in database
 
 ## Orders
 
-- https://digital-cow-hut-backend-pearl.vercel.app/api/v1/orders (POST)
-- https://digital-cow-hut-backend-pearl.vercel.app/api/v1/orders (GET)
+- Route: https://digital-cow-hut-auth-sand.vercel.app/api/v1/orders (POST)
+- Route: https://digital-cow-hut-auth-sand.vercel.app/api/v1/orders (GET)
+
+# Bonus Part
+
+## Admin
+
+- Route: https://digital-cow-hut-auth-sand.vercel.app/api/v1/admins/create-admin (POST)
+
+## My Profile
+
+- Route: https://digital-cow-hut-auth-sand.vercel.app/api/v1/users/my-profile (GET)
+- Route: https://digital-cow-hut-auth-sand.vercel.app/api/v1/users/my-profile (PATCH)
+
+- Route: https://digital-cow-hut-auth-sand.vercel.app/api/v1/admins/my-profile (GET)
+
+- Route: https://digital-cow-hut-auth-sand.vercel.app/api/v1/admins/my-profile (PATCH)
+
+## Order:
+
+- Route: https://digital-cow-hut-auth-sand.vercel.app/api/v1/orders/6177a5b87d32123f08d2f5d4 (Single GET)

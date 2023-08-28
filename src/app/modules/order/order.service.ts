@@ -62,11 +62,11 @@ const createOrder = async (order: IOrder): Promise<IOrder> => {
     newOrderAllData = (await newOrder[0].populate('cow')).populate('buyer');
 
     await session.commitTransaction();
+    await session.endSession();
   } catch (error) {
     await session.abortTransaction();
-    throw error;
-  } finally {
     await session.endSession();
+    throw error;
   }
   return newOrderAllData;
 };
