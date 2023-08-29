@@ -68,7 +68,6 @@ const getAdminProfile = async (
     name: 1,
     phoneNumber: 1,
     address: 1,
-    _id: 0,
   });
   return result;
 };
@@ -105,7 +104,7 @@ const updateAdminProfile = async (
     { _id: user?._id },
     updatedAdminData,
     { new: true },
-  ).select({ _id: 0, name: 1, phoneNumber: 1, address: 1 });
+  ).select({ name: 1, phoneNumber: 1, address: 1 });
 
   return result;
 };

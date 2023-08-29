@@ -59,7 +59,16 @@ const createOrder = async (order: IOrder): Promise<IOrder> => {
 
     //save order
     const newOrder = await Order.create([order], { session });
-    newOrderAllData = (await newOrder[0].populate('cow')).populate('buyer');
+    newOrderAllData = (
+      await newOrder[0].populate({
+        path: 'cow',
+        populate: [
+          {
+            path: 'seller',
+          },
+        ],
+      })
+    ).populate('buyer');
 
     await session.commitTransaction();
     await session.endSession();
