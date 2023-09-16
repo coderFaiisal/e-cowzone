@@ -13,10 +13,11 @@ const createOrder = async (order: IOrder): Promise<IOrder> => {
   //start transaction operation
   const session = await startSession();
   try {
-    session.startTransaction();
     const cow = await Cow.findById(order.cow);
     const buyer = await User.findById(order.buyer);
     const seller = await User.findById(cow?.seller);
+
+    session.startTransaction();
 
     const cowPrice = cow ? cow.price : 0;
     const newBuyerBudget = buyer ? buyer.budget - cowPrice : 0;
