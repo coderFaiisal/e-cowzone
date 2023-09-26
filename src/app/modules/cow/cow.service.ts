@@ -82,7 +82,7 @@ const getAllCows = async (
     .limit(limit)
     .populate('seller');
 
-  const total = await Cow.countDocuments(whereConditons);
+  const total = await Cow.countDocuments();
 
   return {
     meta: {
