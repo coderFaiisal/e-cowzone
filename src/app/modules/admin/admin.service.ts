@@ -86,6 +86,7 @@ const updateAdminProfile = async (
 
   const updatedAdminData: Partial<IAdmin> = { ...adminData };
 
+  //update name dynamically
   if (name && Object.keys(name).length > 0) {
     Object.keys(name).forEach(key => {
       const nameKey = `name.${key}` as keyof IAdmin;
@@ -93,6 +94,7 @@ const updateAdminProfile = async (
     });
   }
 
+  //hashing password
   if (password) {
     updatedAdminData.password = await bcrypt.hash(
       password,

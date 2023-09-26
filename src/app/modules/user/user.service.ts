@@ -43,6 +43,7 @@ const updateUserProfile = async (
 
   const updatedUserData: Partial<IUser> = { ...userData };
 
+  //dynamic name update
   if (name && Object.keys(name).length > 0) {
     Object.keys(name).forEach(key => {
       const nameKey = `name.${key}` as keyof IUser;
@@ -50,6 +51,7 @@ const updateUserProfile = async (
     });
   }
 
+  //hashing password
   if (password) {
     updatedUserData.password = await bcrypt.hash(
       password,
